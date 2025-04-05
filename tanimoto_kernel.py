@@ -8,9 +8,7 @@ import torch
 from gpytorch.kernels import Kernel
 
 
-def batch_tanimoto_sim(
-    x1: torch.Tensor, x2: torch.Tensor, eps: float = 1e-6
-) -> torch.Tensor:
+def batch_tanimoto_sim(x1: torch.Tensor, x2: torch.Tensor, eps: float = 1e-6) -> torch.Tensor:
     """
     Tanimoto similarity between two batched tensors, across last 2 dimensions.
     eps argument ensures numerical stability if all zero tensors are added. Tanimoto similarity is proportional to:
