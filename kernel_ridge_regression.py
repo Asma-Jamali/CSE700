@@ -14,10 +14,7 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import r2_score
 
 # Local application imports
-from tanimoto_kernel import TanimotoKernel
-from dice_kernel import DiceKernel
-from td_kernels import laplacian_kernel, gaussian_kernel
-from collections import namedtuple
+from kernels_library import TanimotoKernel, DiceKernel, laplacian_kernel, gaussian_kernel
 
 
 # STATIC OBJECT. KERNEL_LIBRARY
