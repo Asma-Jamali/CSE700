@@ -1,0 +1,255 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{tocloft} % For customizing TOC fonts
+\renewcommand{\cftsecfont}{\large} % Section font size
+\renewcommand{\cftsubsecfont}{\large} % Subsection font size
+\renewcommand{\cftsecpagefont}{\large} % Page number font size
+\renewcommand{\cftsubsecpagefont}{\large}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{ulem} % Add to preamble
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{User Guide for CSE700 Final Project: Kernel Ridge Regression}
+\author{Uriel Garcilazo Cruz and Asma Jamali}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage 
+
+\section{Synopsis}
+Our project focuses on the implementation of global and local matrix representations of molecular properties (HOMO-LUMO gap and heat capacity) 
+taken from the QM9 dataset. We use them in a comparative framework to evaluate the effects of trimming eigenvalues during the implementation of 
+kernel ridge regression (KRR). Along with our main results, presented in the project:
+\textbf{Characterizing Overfitting in the Molecular Kernel-Based Methods}, we have developed a Python package to go along with this implementation.
+
+Our software \textbf{krr} is an implementation of Kernel Ridge Regression (KRR) with support for custom kernels (Tanimoto, Dice, Gaussian and Laplacian) to predict molecular properties (e.g., HOMO-LUMO gap and heat capacity)
+ from the QM9 dataset. The code integrates eigenvalue truncation to optimize performance.
+
+\section{How to run Python package}
+
+A functional folder for our application — with all the elements required to run the code — should have the following arrangement:
+
+\begin{lstlisting}[language=bash]
+    .
+    |-- CSE700
+    |   |-- Dataset
+    |   |   |-- bob_rep.npy
+    |   |   |-- coulomb_matrix_rep.npy
+    |   |   `-- dataset.pkl
+    |   |-- krr
+    |   |   |-- Kernel_ridge_regression.py
+    |   |   |-- plot_utils.py
+    |   |   `-- kernels_library.py
+    |   |-- main.py
+    |   `-- setup.py
+\end{lstlisting}
+
+Due to the size of the files contained in the folder Dataset, which is large relative to the conventional file size 
+accepted by GitHub, the process of building the folder structure shown above requires two steps:
+
+\subsection{Clone the GitHub repository}
+
+In your terminal, navigate to the directory where you want to clone the repository and run:
+
+\begin{lstlisting}[language=bash]
+    git clone https://github.com/Asma-Jamali/CSE700.git
+\end{lstlisting}
+
+If you encounter any issues, please use your browser to navigate to the GitHub repository containing our KRR algorithm:
+
+~\newline
+\href{https://github.com/Asma-Jamali/CSE700/tree/KRR}{https://github.com/Asma-Jamali/CSE700/tree/KRR}
+~\newline 
+
+In there, you will find the option to clone the repository. You can do this by clicking on the green button labeled "Code" and copying the URL provided.
+Keep in mind that you will need to have Git installed on your computer to clone the repository.
+If you don't have Git installed, you can download the repository as a ZIP file by clicking on the "Download ZIP" option in the same menu.
+This is especially useful for Windows users who may not have Git installed.
+
+\subsection{Download the dataset}
+The dataset is too large to be uploaded to GitHub. To download the dataset, please use the link below:
+
+\href{https://mcmasteru365-my.sharepoint.com/:f:/g/personal/garcilau_mcmaster_ca/El34gk2N9_lPkw9xiCZU5_kBwu6Xg1YPbDJVekdcor7IkQ?e=3Uvl8c}{LINK TO DATASET}
+
+The dataset is password protected. Due to one of our developer's expertise being arachnology, the password is \textbf{Maratus\_volans}.
+
+Once the dataset has been downloaded, place it inside the folder and at the same level as main.py (control module).
+
+\subsection{Installing the package}
+
+The program is now in our local directory, but it's still not ready to run. There are multiple libraries 
+that need to be installed. Luckily, Python has a straightforward way to ensure the interpreter can install such dependencies.
+Navigate to the folder where setup.py is located in the terminal and run:
+\begin{lstlisting}[language=bash]
+    pip install -e .
+\end{lstlisting}
+
+This will create an editable installation of the package, allowing you to modify the code and see the changes immediately without needing to reinstall the package.
+To install the package, you need to have Python  version >=3.9, and pip installed on your system. If you don't have them installed, you can download Python from the official website: \href{https://www.python.org/downloads/}{Python Downloads}. Pip is included with Python installations.
+We also recommend using a virtual environment to avoid conflicts with other packages. 
+
+To execute the code, navigate to the folder where main.py is located in the terminal and run:
+\begin{lstlisting}[language=bash]
+    python main.py
+\end{lstlisting}
+
+If all the dependencies are installed correctly, the program should run without any issues.
+
+\subsection{Inputs and Outputs}
+
+The program takes the following inputs:
+
+For the current version of the code, the user only need to specify the location of the picked dataset file, and the location for the output files: 
+\begin{lstlisting}[language=python]
+    # in main.py:
+    dataset_path = 'Dataset/dataset.pkl'
+    output_path = '/results/'
+\end{lstlisting}
+
+This data is a type of numpy array; a highly efficient data structure for storing large amounts of data.
+
+The second most important set of parameters to feed into the kernel\_ridge\_regression function is the type of kernel and 
+type of representation. A summary of potential valid inputs is presented in the next table:
+
+
+% #######################################
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{4cm}|}
+    \hline
+    \textbf{Kernel} & \textbf{Representation} & \textbf{Valid} & \textbf{Exception} \\ \hline
+    gaussian & CM & Y &  \\ \hline
+    gaussian & BOB & Y &  \\ \hline
+    laplacian & CM & Y &  \\ \hline
+    laplacian & BOB & Y &  \\ \hline
+    tanimoto & CM & N & Kernel type TANIMOTO of type CM is not supported. \\ \hline
+    tanimoto & BOB & N & Kernel type TANIMOTO of type BOB is not supported. \\ \hline
+    dice & CM & N & Kernel type DICE of type CM is not supported. \\ \hline
+    dice & BOB & N & Kernel type DICE of type BOB is not supported. \\ \hline
+    \end{tabular}
+    \caption{Kernel Representations and Validity}
+    \label{tab:kernel_validity}
+    \end{table}
+% #######################################
+
+If the user wants to opt for the use of the Tanimoto or Dice kernel, 
+they MUST leave a missing representation in the call to the function \textbf{kernel\_ridge\_regrestion}.
+
+\begin{lstlisting}[language=bash]
+    kernel_ridge_regression(data, save_path="./results", kernel_name='gaussian', mol_property='Gap', regularization=False)
+\end{lstlisting}
+
+The example of the function above shows most of the default values for the parameters but representation is missing.
+
+
+The program will then load the dataset and use it to train the KRR model. The model will be trained using the specified kernel (Tanimoto, Dice, Gaussian, or Laplacian)
+ and the specified representation (if valid). The user will find two csv files:  
+\begin{itemize}
+    \item \textbf{results.csv}: This file contains the results of the truncated KRR model, including the $R^2$ scores, representing the performance of the model on both training and test samples.
+    \item \textbf{eigenvalues.csv}: This file contains the eigenvalues of the kernel matrix.
+\end{itemize}
+
+The generated files will be deposited in the directory chosen by the user, with the type of analysis as a folder. For example,
+for a Gaussian regression type, the output folder will look as follows:
+\begin{lstlisting}[language=bash]
+    results/
+    |-- Gaussian
+    |   |-- eigenvalues.csv
+    |   `-- results.csv
+\end{lstlisting}
+variable \textbf{output\_path}.
+
+\subsection{Plotting the results}
+
+The diagrams shown in the main manuscript for the project can now be generated by feeding the results.csv and eigenvalues.csv files into a plotting software.
+This can be achieved by feeding the data into a spreadsheet program like Excel or Google Sheets, or by using 
+a custom script to generate the plots. We have made available a helper module that uses the package matplotlib to 
+assist the user interested in using scripting for plotting the results.
+
+To use it, the main function in the module — called plot\_kernels.py — should receive one of two possible string 
+inputs, determined based on the type of kernel used in the analysis:
+
+% #######################################
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Kernel Type} & \textbf{Description} \\ \hline
+    fingerprint\_based & If you have results.csv files for \textbf{tanimoto} and \textbf{gaussian} kernel types \\ \hline
+    distance\_based & If you have results.csv files for \textbf{gaussian} and \textbf{laplacian} kernel types \\ \hline
+    \end{tabular}
+    \caption{Inputs for helper module \texttt{plot\_utils.py}}
+    \label{tab:kernel_validity}
+\end{table}
+
+Please keep in consideration that the helper module runs with the assumption that your 
+you have the result files for EACH of the two kernels (e.g. gaussian and laplacian). This is 
+due to the comparative nature of the plotting algorithm, designed to 
+highlight the differences between the two comparable kernel types.
+
+For example, if your results folder structure looks as follows:
+\begin{lstlisting}[language=bash]
+    results/
+    |-- gaussian
+    |   |-- eigenvalues.csv
+    |   `-- results.csv
+    |-- laplacian
+    |   |-- eigenvalues.csv
+    |   `-- results.csv
+\end{lstlisting}
+
+Then you would call the plotting function with the following parameters:
+\begin{lstlisting}[language=bash]
+    plot_kernels(kernel_type="distance_based", path_results="..path/results/", regularization=False)
+\end{lstlisting}
+
+For the purposes of demonstration, we have incorporated a call to this method in the 
+main.py file. The end user can choose to comment it out or leave it as is.
+
+In conclusion, this script will generate the plots and save them in a folder called Figures.
+For examples on how to analyze and interpret the results, please refer to the main 
+project's manuscript: \textbf{Characterizing Overfitting in the
+Molecular Kernel-Based Methods}
+
+% #######################################
+
+\end{document}
