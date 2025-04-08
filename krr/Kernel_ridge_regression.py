@@ -157,7 +157,7 @@ def kernel_ridge_regression(data:pd.DataFrame, save_path, kernel_name:str, n_tra
     # Select Kernel to Train Model
     model = KernelRidgeModel(kernel_name, is_td)
     is_fingerprint = representation if is_td else "fingerprint"
-    print("Program is running with the following parameters:\nkernel type: {kernel_name}\nrepresentation: {is_fingerprint}\nregularization: {regularization}")
+    print(f"Program is running with the following parameters:\nkernel type: {kernel_name}\nrepresentation: {is_fingerprint}\nregularization: {regularization}")
     if is_td:      
         property_data = data[mol_property]  
         # Train-test split

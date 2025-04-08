@@ -7,7 +7,7 @@ if __name__ == "__main__":
     data_path = 'Dataset/dataset.pkl'
     output_path = "./results"
     data = pd.read_pickle(data_path)
-    # kernel_ridge_regression(data, save_path="./results",kernel_name='gaussian', mol_property='Gap', representation='BOB', regularization=False)
+    kernel_ridge_regression(data, save_path="./results",kernel_name='gaussian', mol_property='Gap', representation='BOB', regularization=False)
 
     '''
     Please uncomment the following lines to generate plots from the kernel ridge regression
