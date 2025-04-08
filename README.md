@@ -6,7 +6,6 @@
 
 # Kernel Ridge Regression for Molecular Property Prediction
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/downloads/)
 
 ## Features
