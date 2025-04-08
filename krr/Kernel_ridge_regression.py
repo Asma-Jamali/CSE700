@@ -135,7 +135,7 @@ def compute_truncated_r2(K_test, y_train, y_test, eigenval, eigenvec, train_set_
 # FD. save_results()
 def save_results(save_path, kernel_name, eigenval, percentages, r2_test, r2_train):
     """Saves computed results into CSV files."""
-    csv_path = os.path.join(save_path, 'kernel_ridge_regression')
+    csv_path = os.path.join(save_path, kernel_name)
     os.makedirs(csv_path, exist_ok=True)
 
     results = pd.DataFrame({
@@ -156,7 +156,8 @@ def kernel_ridge_regression(data:pd.DataFrame, save_path, kernel_name:str, n_tra
     n_train, n_test = 5000, 10000
     # Select Kernel to Train Model
     model = KernelRidgeModel(kernel_name, is_td)
-    
+    is_fingerprint = representation if is_td else "fingerprint"
+    print("Program is running with the following parameters:\nkernel type: {kernel_name}\nrepresentation: {is_fingerprint}\nregularization: {regularization}")
     if is_td:      
         property_data = data[mol_property]  
         # Train-test split
